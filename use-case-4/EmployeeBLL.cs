@@ -89,7 +89,7 @@ namespace EmployeeApp.BusinessLogic
                 db.AddInParameter(cmd, "@LastModifiedEmpID",      DbType.Int32,   lastModifiedEmpID);
 
                 // Output parameter - receives the new EmployeeID
-                db.AddOutParameter(cmd, "@EmployeeID", DbType.Int32, sizeof(int));
+                db.AddOutParameter(cmd, "@EmployeeID", DbType.Int32, 4);
 
                 db.ExecuteNonQuery(cmd);
 

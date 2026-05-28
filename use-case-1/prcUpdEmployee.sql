@@ -48,11 +48,11 @@ BEGIN
     IF @LoginName IS NULL
         SET @LoginName = '';
 
-    IF (@IsActive = 'True')
+    IF (@IsActive = 1)
     BEGIN
         -- validate @LoginName uniqueness (excluding current employee)
         IF (@LoginName <> '')
-        IF EXISTS(SELECT EmployeeID FROM tblEmployee WHERE IsActive = 'True' AND LoginName = @LoginName AND EmployeeID <> @EmployeeID)
+        IF EXISTS(SELECT EmployeeID FROM tblEmployee WHERE IsActive = 1 AND LoginName = @LoginName AND EmployeeID <> @EmployeeID)
         BEGIN
             SET @Msg = 'Login Name must be unique for active users.';
             RAISERROR (@Msg, 16, 1) WITH SETERROR;
@@ -78,7 +78,7 @@ BEGIN
             RETURN @@ERROR;
         END;
         -- make sure DisplayName (PreferredName + LastName) will be unique (excluding current employee)
-        IF EXISTS(SELECT EmployeeID FROM tblEmployee WHERE IsActive = 'True' AND
+        IF EXISTS(SELECT EmployeeID FROM tblEmployee WHERE IsActive = 1 AND
                 PreferredName = @PreferredName AND
                 LastName = @LastName AND
                 EmployeeID <> @EmployeeID)
